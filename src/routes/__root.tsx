@@ -77,13 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MRD Fund Management" },
-      { name: "description", content: "Plataforma privada de gestión del fondo de inversión MRD Fund." },
+      { title: "FoxEA Fund" },
+      { name: "description", content: "Plataforma privada de gestión del fondo de inversión FoxEA Fund." },
       { name: "robots", content: "noindex,nofollow" },
-      { property: "og:title", content: "MRD Fund Management" },
-      { property: "og:description", content: "Plataforma privada de gestión del fondo de inversión MRD Fund." },
+      { property: "og:title", content: "FoxEA Fund" },
+      { property: "og:description", content: "Plataforma privada de gestión del fondo de inversión FoxEA Fund." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "FoxEA Fund" },
+      { name: "twitter:description", content: "Plataforma privada de gestión del fondo de inversión FoxEA Fund." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/57292e94-7c81-4492-8234-d6cb85205543" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/57292e94-7c81-4492-8234-d6cb85205543" },
     ],
     links: [
       {
