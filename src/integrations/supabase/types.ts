@@ -14,16 +14,421 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_logs: {
+        Row: {
+          action: string
+          created_at: string
+          entity: string
+          entity_id: string | null
+          id: string
+          metadata: Json | null
+          user_id: string | null
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          entity: string
+          entity_id?: string | null
+          id?: string
+          metadata?: Json | null
+          user_id?: string | null
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          entity?: string
+          entity_id?: string | null
+          id?: string
+          metadata?: Json | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      capital_contributions: {
+        Row: {
+          amount: number
+          contribution_date: string
+          contribution_type: string
+          created_at: string
+          created_by: string | null
+          cycle_id: string | null
+          fund_id: string
+          id: string
+          investor_id: string
+          notes: string | null
+        }
+        Insert: {
+          amount: number
+          contribution_date?: string
+          contribution_type?: string
+          created_at?: string
+          created_by?: string | null
+          cycle_id?: string | null
+          fund_id: string
+          id?: string
+          investor_id: string
+          notes?: string | null
+        }
+        Update: {
+          amount?: number
+          contribution_date?: string
+          contribution_type?: string
+          created_at?: string
+          created_by?: string | null
+          cycle_id?: string | null
+          fund_id?: string
+          id?: string
+          investor_id?: string
+          notes?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "capital_contributions_cycle_id_fkey"
+            columns: ["cycle_id"]
+            isOneToOne: false
+            referencedRelation: "fund_cycles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capital_contributions_fund_id_fkey"
+            columns: ["fund_id"]
+            isOneToOne: false
+            referencedRelation: "funds"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capital_contributions_investor_id_fkey"
+            columns: ["investor_id"]
+            isOneToOne: false
+            referencedRelation: "investors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      capital_withdrawals: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string | null
+          cycle_id: string | null
+          fund_id: string
+          id: string
+          investor_id: string
+          notes: string | null
+          withdrawal_date: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          cycle_id?: string | null
+          fund_id: string
+          id?: string
+          investor_id: string
+          notes?: string | null
+          withdrawal_date?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          cycle_id?: string | null
+          fund_id?: string
+          id?: string
+          investor_id?: string
+          notes?: string | null
+          withdrawal_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "capital_withdrawals_cycle_id_fkey"
+            columns: ["cycle_id"]
+            isOneToOne: false
+            referencedRelation: "fund_cycles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capital_withdrawals_fund_id_fkey"
+            columns: ["fund_id"]
+            isOneToOne: false
+            referencedRelation: "funds"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capital_withdrawals_investor_id_fkey"
+            columns: ["investor_id"]
+            isOneToOne: false
+            referencedRelation: "investors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fund_cycles: {
+        Row: {
+          closed_at: string | null
+          closing_balance: number | null
+          created_at: string
+          cycle_number: number
+          end_date: string | null
+          fund_id: string
+          fund_return_pct: number | null
+          gross_profit: number | null
+          id: string
+          investor_count: number | null
+          open_positions: boolean
+          opening_balance: number
+          start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          closed_at?: string | null
+          closing_balance?: number | null
+          created_at?: string
+          cycle_number: number
+          end_date?: string | null
+          fund_id: string
+          fund_return_pct?: number | null
+          gross_profit?: number | null
+          id?: string
+          investor_count?: number | null
+          open_positions?: boolean
+          opening_balance?: number
+          start_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          closed_at?: string | null
+          closing_balance?: number | null
+          created_at?: string
+          cycle_number?: number
+          end_date?: string | null
+          fund_id?: string
+          fund_return_pct?: number | null
+          gross_profit?: number | null
+          id?: string
+          investor_count?: number | null
+          open_positions?: boolean
+          opening_balance?: number
+          start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fund_cycles_fund_id_fkey"
+            columns: ["fund_id"]
+            isOneToOne: false
+            referencedRelation: "funds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      funds: {
+        Row: {
+          created_at: string
+          current_balance_manual: number
+          id: string
+          initial_capital: number
+          name: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          current_balance_manual?: number
+          id?: string
+          initial_capital?: number
+          name: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          current_balance_manual?: number
+          id?: string
+          initial_capital?: number
+          name?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      investor_cycle_snapshots: {
+        Row: {
+          admin_fee_amount: number
+          admin_fee_pct: number
+          closing_capital: number
+          contributions_in_cycle: number
+          created_at: string
+          cycle_id: string
+          cycle_roi_pct: number
+          gross_profit: number
+          id: string
+          investor_id: string
+          net_profit: number
+          opening_capital: number
+          participation_pct: number
+          withdrawals_in_cycle: number
+        }
+        Insert: {
+          admin_fee_amount?: number
+          admin_fee_pct?: number
+          closing_capital: number
+          contributions_in_cycle?: number
+          created_at?: string
+          cycle_id: string
+          cycle_roi_pct: number
+          gross_profit: number
+          id?: string
+          investor_id: string
+          net_profit: number
+          opening_capital: number
+          participation_pct: number
+          withdrawals_in_cycle?: number
+        }
+        Update: {
+          admin_fee_amount?: number
+          admin_fee_pct?: number
+          closing_capital?: number
+          contributions_in_cycle?: number
+          created_at?: string
+          cycle_id?: string
+          cycle_roi_pct?: number
+          gross_profit?: number
+          id?: string
+          investor_id?: string
+          net_profit?: number
+          opening_capital?: number
+          participation_pct?: number
+          withdrawals_in_cycle?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investor_cycle_snapshots_cycle_id_fkey"
+            columns: ["cycle_id"]
+            isOneToOne: false
+            referencedRelation: "fund_cycles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "investor_cycle_snapshots_investor_id_fkey"
+            columns: ["investor_id"]
+            isOneToOne: false
+            referencedRelation: "investors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      investors: {
+        Row: {
+          created_at: string
+          date_joined: string
+          display_name: string
+          fund_id: string
+          id: string
+          initial_contribution: number
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          date_joined?: string
+          display_name: string
+          fund_id: string
+          id?: string
+          initial_contribution?: number
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          date_joined?: string
+          display_name?: string
+          fund_id?: string
+          id?: string
+          initial_contribution?: number
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "investors_fund_id_fkey"
+            columns: ["fund_id"]
+            isOneToOne: false
+            referencedRelation: "funds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          full_name: string | null
+          id: string
+          is_active: boolean
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          full_name?: string | null
+          id: string
+          is_active?: boolean
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          is_active?: boolean
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "investor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +555,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "investor"],
+    },
   },
 } as const
