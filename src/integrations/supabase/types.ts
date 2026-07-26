@@ -55,7 +55,9 @@ export type Database = {
           fund_id: string
           id: string
           investor_id: string
+          is_correction: boolean
           notes: string | null
+          reverses_id: string | null
         }
         Insert: {
           amount: number
@@ -67,7 +69,9 @@ export type Database = {
           fund_id: string
           id?: string
           investor_id: string
+          is_correction?: boolean
           notes?: string | null
+          reverses_id?: string | null
         }
         Update: {
           amount?: number
@@ -79,7 +83,9 @@ export type Database = {
           fund_id?: string
           id?: string
           investor_id?: string
+          is_correction?: boolean
           notes?: string | null
+          reverses_id?: string | null
         }
         Relationships: [
           {
@@ -103,6 +109,13 @@ export type Database = {
             referencedRelation: "investors"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "capital_contributions_reverses_id_fkey"
+            columns: ["reverses_id"]
+            isOneToOne: false
+            referencedRelation: "capital_contributions"
+            referencedColumns: ["id"]
+          },
         ]
       }
       capital_withdrawals: {
@@ -114,7 +127,9 @@ export type Database = {
           fund_id: string
           id: string
           investor_id: string
+          is_correction: boolean
           notes: string | null
+          reverses_id: string | null
           withdrawal_date: string
         }
         Insert: {
@@ -125,7 +140,9 @@ export type Database = {
           fund_id: string
           id?: string
           investor_id: string
+          is_correction?: boolean
           notes?: string | null
+          reverses_id?: string | null
           withdrawal_date?: string
         }
         Update: {
@@ -136,7 +153,9 @@ export type Database = {
           fund_id?: string
           id?: string
           investor_id?: string
+          is_correction?: boolean
           notes?: string | null
+          reverses_id?: string | null
           withdrawal_date?: string
         }
         Relationships: [
@@ -159,6 +178,13 @@ export type Database = {
             columns: ["investor_id"]
             isOneToOne: false
             referencedRelation: "investors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "capital_withdrawals_reverses_id_fkey"
+            columns: ["reverses_id"]
+            isOneToOne: false
+            referencedRelation: "capital_withdrawals"
             referencedColumns: ["id"]
           },
         ]
@@ -229,6 +255,7 @@ export type Database = {
         Row: {
           created_at: string
           current_balance_manual: number
+          default_admin_fee_pct: number
           id: string
           initial_capital: number
           name: string
@@ -238,6 +265,7 @@ export type Database = {
         Insert: {
           created_at?: string
           current_balance_manual?: number
+          default_admin_fee_pct?: number
           id?: string
           initial_capital?: number
           name: string
@@ -247,6 +275,7 @@ export type Database = {
         Update: {
           created_at?: string
           current_balance_manual?: number
+          default_admin_fee_pct?: number
           id?: string
           initial_capital?: number
           name?: string
@@ -326,9 +355,13 @@ export type Database = {
           created_at: string
           date_joined: string
           display_name: string
+          fee_pct: number | null
           fund_id: string
+          group_label: string | null
           id: string
           initial_contribution: number
+          is_internal: boolean
+          notes: string | null
           status: string
           updated_at: string
           user_id: string | null
@@ -337,9 +370,13 @@ export type Database = {
           created_at?: string
           date_joined?: string
           display_name: string
+          fee_pct?: number | null
           fund_id: string
+          group_label?: string | null
           id?: string
           initial_contribution?: number
+          is_internal?: boolean
+          notes?: string | null
           status?: string
           updated_at?: string
           user_id?: string | null
@@ -348,9 +385,13 @@ export type Database = {
           created_at?: string
           date_joined?: string
           display_name?: string
+          fee_pct?: number | null
           fund_id?: string
+          group_label?: string | null
           id?: string
           initial_contribution?: number
+          is_internal?: boolean
+          notes?: string | null
           status?: string
           updated_at?: string
           user_id?: string | null
@@ -367,7 +408,9 @@ export type Database = {
       }
       profiles: {
         Row: {
+          admin_notes: string | null
           created_at: string
+          email: string | null
           full_name: string | null
           id: string
           is_active: boolean
@@ -375,7 +418,9 @@ export type Database = {
           username: string
         }
         Insert: {
+          admin_notes?: string | null
           created_at?: string
+          email?: string | null
           full_name?: string | null
           id: string
           is_active?: boolean
@@ -383,7 +428,9 @@ export type Database = {
           username: string
         }
         Update: {
+          admin_notes?: string | null
           created_at?: string
+          email?: string | null
           full_name?: string | null
           id?: string
           is_active?: boolean
