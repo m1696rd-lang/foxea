@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "sdk_version": "0.24.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://otanpphooiuqiekmbpoj.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "scalping-fox-mcp",
+      "version": "0.1.0",
+      "title": "SCALPING FOX Capital Fund"
+    },
+    "tools": [
+      {
+        "name": "get_fund_overview",
+        "title": "Resumen del fondo",
+        "description": "Devuelve el estado actual del fondo SCALPING FOX: capital inicial, balance actual, corte abierto (número, fecha de inicio, balance de apertura, operaciones abiertas) y profit del corte.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_positions",
+        "title": "Mis posiciones financieras",
+        "description": "Lista las posiciones financieras (cuentas de inversión) vinculadas al usuario autenticado, con aporte inicial, capital aportado, capital retirado, capital actual, participación %, ROI % y capital pendiente de recuperación.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_movements",
+        "title": "Mis movimientos de capital",
+        "description": "Lista las aportaciones y los retiros de capital visibles para el usuario autenticado, ordenados por fecha descendente.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "description": "Máximo de movimientos por tipo (por defecto 50)."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_my_cycle_history",
+        "title": "Mi historial de cortes",
+        "description": "Devuelve las liquidaciones (snapshots) inmutables de cada corte cerrado para las posiciones del usuario autenticado: participación, profit bruto, fee de administración y ganancia neta.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
