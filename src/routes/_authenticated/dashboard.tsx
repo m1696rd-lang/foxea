@@ -15,6 +15,8 @@ import {
   AreaChart, Area, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, ReferenceLine, Cell,
 } from "recharts";
 import type { FundState } from "@/lib/finance";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import TradingViewEventsWidget from "@/components/trading-view-events";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
@@ -68,6 +70,8 @@ function Dashboard() {
       />
 
       <ChartsSection history={history ?? []} fund={fund} />
+
+      <EconomicCalendarSection />
 
       <InvestorPerformanceTable investors={investors} cycle={cycle} />
 
@@ -447,6 +451,50 @@ function ChartTooltip({ active, payload, label, fmt }: any) {
       <div className="text-muted-foreground">{label}</div>
       <div className="num font-semibold mt-0.5">{display}</div>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Economic Calendar (tabbed widgets)                                  */
+/* ------------------------------------------------------------------ */
+function EconomicCalendarSection() {
+  return (
+    <section>
+      <div className="flex items-baseline justify-between mb-3">
+        <h2 className="text-sm font-semibold">Calendario Económico</h2>
+        <span className="text-[10px] uppercase tracking-wider text-muted-foreground">Eventos del mercado</span>
+      </div>
+      <Tabs defaultValue="tradingview" className="w-full">
+        <TabsList>
+          <TabsTrigger value="tradingview">TradingView</TabsTrigger>
+          <TabsTrigger value="investing">Investing.com</TabsTrigger>
+        </TabsList>
+        <TabsContent value="tradingview" className="mt-3">
+          <div className="bg-card border rounded-lg p-2 h-[480px] overflow-hidden">
+            <TradingViewEventsWidget />
+          </div>
+        </TabsContent>
+        <TabsContent value="investing" className="mt-3">
+          <div className="bg-card border rounded-lg p-3 h-[520px] overflow-hidden flex flex-col">
+            <iframe
+              src="https://sslecal2.investing.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=25,32,6,37,15,72,22,17,39,14,10,35,43,56,36,110,11,26,12,143,4,5&calType=day&timeZone=55&lang=1"
+              width="100%"
+              height="100%"
+              frameBorder="0"
+              allowTransparency
+              marginWidth={0}
+              marginHeight={0}
+              className="flex-1 w-full rounded-md"
+              title="Calendario económico — Investing.com"
+            />
+            <div className="text-[10px] text-muted-foreground text-center pt-2">
+              Real Time Economic Calendar provided by{" "}
+              <a href="https://www.investing.com/" rel="nofollow" target="_blank" className="text-primary">Investing.com</a>.
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </section>
   );
 }
 
