@@ -46,7 +46,10 @@ function Sidebar({ mode, isGenesis, viewMode, onSwitch }: {
     { to: "/inversores", label: "Inversores" },
     { to: "/movimientos", label: "Movimientos" },
     { to: "/cortes", label: "Cortes" },
+    { to: "/liquidaciones", label: "Liquidaciones" },
     { to: "/usuarios", label: "Usuarios" },
+    { to: "/historial", label: "Historial" },
+    { to: "/configuracion", label: "Configuración" },
   ];
   const investorNav = [
     { to: "/mi-inversion", label: "Mi Inversión" },
@@ -56,8 +59,8 @@ function Sidebar({ mode, isGenesis, viewMode, onSwitch }: {
   return (
     <aside className="w-60 shrink-0 bg-sidebar border-r border-sidebar-border flex flex-col">
       <div className="px-5 py-6 border-b border-sidebar-border">
-        <div className="text-primary text-[10px] font-mono tracking-[0.3em]">MRD FUND</div>
-        <div className="text-sidebar-foreground font-semibold mt-0.5">Fund Management</div>
+        <div className="text-primary text-[10px] font-mono tracking-[0.3em]">SCALPING FOX</div>
+        <div className="text-sidebar-foreground font-semibold mt-0.5">Algorithmic Capital Fund</div>
       </div>
       <nav className="flex-1 p-3 space-y-0.5">
         {items.map((it) => {
