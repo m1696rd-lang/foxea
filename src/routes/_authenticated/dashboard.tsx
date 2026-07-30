@@ -118,7 +118,7 @@ function DashboardHeader({ fundName, cycle }: { fundName: string; cycle: FundSta
 /* ------------------------------------------------------------------ */
 /* KPI Grid                                                            */
 /* ------------------------------------------------------------------ */
-function KpiGrid({ fund, investors }: { fund: FundState; investors: ReturnType<typeof loadFundState> extends infer T ? T extends { investors: infer I } ? I : never : never }) {
+function KpiGrid({ fund, investors }: { fund: FundState; investors: NonNullable<Awaited<ReturnType<typeof loadFundState>>>["investors"] }) {
   const cycle = fund.current_cycle;
   const kpis = [
     { label: "Capital Inicial", value: fmtMoney(fund.initial_capital), hint: "Capital base del fondo" },
@@ -333,7 +333,7 @@ function CycleStat({ label, value, tone }: { label: string; value: string; tone?
 /* ------------------------------------------------------------------ */
 /* Charts                                                              */
 /* ------------------------------------------------------------------ */
-function ChartsSection({ history, fund }: { history: ReturnType<typeof loadCycleHistory>; fund: FundState }) {
+function ChartsSection({ history, fund }: { history: Awaited<ReturnType<typeof loadCycleHistory>>; fund: FundState }) {
   // Build balance evolution: start from initial capital, then each closed cycle's closing balance.
   const balanceData = useMemo(() => {
     const closed = [...history].filter((h) => h.status === "closed").sort((a, b) => a.cycle_number - b.cycle_number);
@@ -648,7 +648,7 @@ function GenerateCorteModal({ fund, cycle, onClose, onDone }: {
 
   const mut = useMutation({
     mutationFn: async () => {
-      const { data, error } = await supabase.rpc("generate_corte", {
+      const { data, error } = await (supabase.rpc as unknown as (fn: string, args?: Record<string, unknown>) => Promise<{ data: unknown; error: { message: string } | null }>)("generate_corte", {
         p_closing_balance: closing,
         p_admin_fee_pct: Number(feePct) || 0,
       });

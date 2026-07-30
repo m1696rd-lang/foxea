@@ -47,13 +47,16 @@ function Sidebar({ mode, isGenesis, viewMode, onSwitch }: {
     { to: "/movimientos", label: "Movimientos" },
     { to: "/cortes", label: "Cortes" },
     { to: "/liquidaciones", label: "Liquidaciones" },
+    { to: "/contabilidad", label: "Contabilidad" },
     { to: "/usuarios", label: "Usuarios" },
     { to: "/historial", label: "Historial" },
     { to: "/configuracion", label: "Configuración" },
   ];
   const investorNav = [
     { to: "/mi-inversion", label: "Mi Inversión" },
+    { to: "/contabilidad", label: "Estado de cuenta" },
   ];
+
   const items = mode === "admin" ? adminNav : investorNav;
 
   return (
