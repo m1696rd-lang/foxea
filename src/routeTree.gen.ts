@@ -22,6 +22,7 @@ import { Route as AuthenticatedInversoresRouteImport } from './routes/_authentic
 import { Route as AuthenticatedHistorialRouteImport } from './routes/_authenticated/historial'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCortesRouteImport } from './routes/_authenticated/cortes'
+import { Route as AuthenticatedContabilidadRouteImport } from './routes/_authenticated/contabilidad'
 import { Route as AuthenticatedConfiguracionRouteImport } from './routes/_authenticated/configuracion'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
@@ -95,6 +96,12 @@ const AuthenticatedCortesRoute = AuthenticatedCortesRouteImport.update({
   path: '/cortes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedContabilidadRoute =
+  AuthenticatedContabilidadRouteImport.update({
+    id: '/contabilidad',
+    path: '/contabilidad',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedConfiguracionRoute =
   AuthenticatedConfiguracionRouteImport.update({
     id: '/configuracion',
@@ -133,6 +140,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/configuracion': typeof AuthenticatedConfiguracionRoute
+  '/contabilidad': typeof AuthenticatedContabilidadRoute
   '/cortes': typeof AuthenticatedCortesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/historial': typeof AuthenticatedHistorialRoute
@@ -152,6 +160,7 @@ export interface FileRoutesByTo {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/configuracion': typeof AuthenticatedConfiguracionRoute
+  '/contabilidad': typeof AuthenticatedContabilidadRoute
   '/cortes': typeof AuthenticatedCortesRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/historial': typeof AuthenticatedHistorialRoute
@@ -173,6 +182,7 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/_authenticated/configuracion': typeof AuthenticatedConfiguracionRoute
+  '/_authenticated/contabilidad': typeof AuthenticatedContabilidadRoute
   '/_authenticated/cortes': typeof AuthenticatedCortesRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/historial': typeof AuthenticatedHistorialRoute
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/configuracion'
+    | '/contabilidad'
     | '/cortes'
     | '/dashboard'
     | '/historial'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/configuracion'
+    | '/contabilidad'
     | '/cortes'
     | '/dashboard'
     | '/historial'
@@ -233,6 +245,7 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/_authenticated/configuracion'
+    | '/_authenticated/contabilidad'
     | '/_authenticated/cortes'
     | '/_authenticated/dashboard'
     | '/_authenticated/historial'
@@ -350,6 +363,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCortesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/contabilidad': {
+      id: '/_authenticated/contabilidad'
+      path: '/contabilidad'
+      fullPath: '/contabilidad'
+      preLoaderRoute: typeof AuthenticatedContabilidadRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/configuracion': {
       id: '/_authenticated/configuracion'
       path: '/configuracion'
@@ -390,6 +410,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedConfiguracionRoute: typeof AuthenticatedConfiguracionRoute
+  AuthenticatedContabilidadRoute: typeof AuthenticatedContabilidadRoute
   AuthenticatedCortesRoute: typeof AuthenticatedCortesRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedHistorialRoute: typeof AuthenticatedHistorialRoute
@@ -402,6 +423,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedConfiguracionRoute: AuthenticatedConfiguracionRoute,
+  AuthenticatedContabilidadRoute: AuthenticatedContabilidadRoute,
   AuthenticatedCortesRoute: AuthenticatedCortesRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedHistorialRoute: AuthenticatedHistorialRoute,
