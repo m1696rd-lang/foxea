@@ -33,7 +33,7 @@ function Configuracion() {
   );
 }
 
-function FundSettingsCard({ fund, onDone }: { fund: ReturnType<typeof loadFundState> extends infer T ? T extends { fund: infer F } ? F : never : never; onDone: () => void }) {
+function FundSettingsCard({ fund, onDone }: { fund: NonNullable<Awaited<ReturnType<typeof loadFundState>>>["fund"]; onDone: () => void }) {
   const [name, setName] = useState(fund.name);
   const [balance, setBalance] = useState(String(fund.current_balance));
   const [feePct, setFeePct] = useState(String(fund.default_admin_fee_pct));
